@@ -3,8 +3,6 @@ package com.example.robby_tib
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +17,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-      binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -27,16 +25,13 @@ class LoginActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-//        val tombolLogin : Button = findViewById(R.id.btnLogin)
-//        val username : EditText = findViewById(R.id.edtUsername)
-//        val password : EditText = findViewById(R.id.edtPassword)
 
         binding.btnLogin.setOnClickListener {
             val user = binding.edtUsername.text.toString()
             val pass = binding.edtPassword.text.toString()
             Log.e("Hasil", "Username $user Password $pass")
 
-            Toast.makeText( this, "Username $user Password $pass", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Username $user Password $pass", Toast.LENGTH_LONG).show()
 
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("username", user)
@@ -44,6 +39,5 @@ class LoginActivity : AppCompatActivity() {
             intent.putExtra("umur", 21)
             startActivity(intent)
         }
-
     }
 }

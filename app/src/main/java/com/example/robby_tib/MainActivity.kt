@@ -6,8 +6,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.robby_tib.databinding.ActivityLoginBinding
 import com.example.robby_tib.databinding.ActivityMainBinding
+import com.example.robby_tib.pertemuan5.LimaActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 
@@ -29,14 +29,15 @@ class MainActivity : AppCompatActivity() {
         }
         val user = intent.getStringExtra("username")
         val pass = intent.getStringExtra("password")
-        val umur = intent.getIntExtra("umur", 0)
 
         binding.txtUsername.text = user
-        binding.txtPassword.setText(pass)
+        binding.txtPassword.text = pass
 
-        binding.btnSnackBar.setOnClickListener{
-            Snackbar.make(binding.root, "Item dihapus",
-                Snackbar.LENGTH_LONG)
+        binding.btnSnackBar.setOnClickListener {
+            Snackbar.make(
+                binding.root, "Item dihapus",
+                Snackbar.LENGTH_LONG
+            )
                 .setAction("BATAL") {
                     // kembalikan item
                 }
@@ -58,11 +59,12 @@ class MainActivity : AppCompatActivity() {
                 .setCancelable(false)
                 .show()
         }
-        binding.btnKembali.setOnClickListener{
-            //val intent = Intent(this, LoginActivity::class.java)
-            //startActivity(intent)
-
+        binding.btnKembali.setOnClickListener {
             finish()
+        }
+        binding.btnToLima.setOnClickListener {
+            val intent = Intent(this@MainActivity, LimaActivity::class.java)
+            startActivity(intent)
         }
     }
 }
