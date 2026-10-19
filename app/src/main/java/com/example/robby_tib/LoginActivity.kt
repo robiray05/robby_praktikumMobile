@@ -30,23 +30,23 @@ class LoginActivity : AppCompatActivity() {
         val sharedPref = getSharedPreferences("user_pref", MODE_PRIVATE)
 // Kondisi jika isLogin bernilai true
 
-            binding.btnLogin.setOnClickListener {
-                val user = binding.edtUsername.text.toString()
-                val pass = binding.edtPassword.text.toString()
-                if (user.isNotEmpty() && user == pass) {
-                    val editor = sharedPref.edit()
-                    editor.putBoolean("isLogin", true)
-                    editor.putString("username", user)
-                    editor.apply()
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
-                } else {
-                    AlertDialog.Builder(this)
-                        .setTitle("Login Gagal")
-                        .setMessage("Silahkan coba lagi")
-                        .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
-                        .show()
-                }
+        binding.btnLogin.setOnClickListener {
+            val user = binding.edtUsername.text.toString()
+            val pass = binding.edtPassword.text.toString()
+            if (user.isNotEmpty() && user == pass) {
+                val editor = sharedPref.edit()
+                editor.putBoolean("isLogin", true)
+                editor.putString("username", user)
+                editor.apply()
+                startActivity(Intent(this, BaseActivity::class.java))
+                finish()
+            } else {
+                AlertDialog.Builder(this)
+                    .setTitle("Login Gagal")
+                    .setMessage("Silahkan coba lagi")
+                    .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+                    .show()
             }
+        }
     }
 }

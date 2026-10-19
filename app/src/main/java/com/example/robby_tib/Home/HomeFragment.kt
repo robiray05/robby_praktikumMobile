@@ -1,37 +1,37 @@
-package com.example.robby_tib
+package com.example.robby_tib.Home
 
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.robby_tib.databinding.ActivityMainBinding
-import com.example.robby_tib.pertemuan5.LimaActivity
-import com.example.robby_tib.pertemuan6.SixthActivity
+import com.example.robby_tib.Home.pertemuan5.LimaActivity
+import com.example.robby_tib.Home.pertemuan6.SixthActivity
+import com.example.robby_tib.LoginActivity
+import com.example.robby_tib.R
+import com.example.robby_tib.databinding.FragmentHomeBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 
-class MainActivity : AppCompatActivity() {
+class HomeFragment : Fragment() {
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-    private lateinit var binding: ActivityMainBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-        val sharedPref = getSharedPreferences("user_pref", MODE_PRIVATE)
-        val user = intent.getStringExtra("username")
-        val pass = intent.getStringExtra("password")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val sharedPref = requireContext().getSharedPreferences("user_pref", MODE_PRIVATE)
+        val user = requireActivity().intent.getStringExtra("username")
+        val pass = requireActivity().intent.getStringExtra("password")
 
         binding.txtUsername.text = user
         binding.txtPassword.text = pass
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnAllertDialog.setOnClickListener {
-            MaterialAlertDialogBuilder(this)
+            MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Hapus data")
                 .setMessage(
                     "Data yang dihapus tidak " +
@@ -63,18 +63,18 @@ class MainActivity : AppCompatActivity() {
                 .show()
         }
         binding.btnKembali.setOnClickListener {
-            finish()
+            requireActivity().finish()
         }
         binding.btnToLima.setOnClickListener {
-            val intent = Intent(this@MainActivity, LimaActivity::class.java)
+            val intent = Intent(requireContext(), LimaActivity::class.java)
             startActivity(intent)
         }
         binding.btnToSix.setOnClickListener {
-            val intent = Intent(this@MainActivity, SixthActivity::class.java)
+            val intent = Intent(requireContext(), SixthActivity::class.java)
             startActivity(intent)
         }
         binding.btnLogout.setOnClickListener {
-            AlertDialog.Builder(this)
+            AlertDialog.Builder(requireContext())
                 .setTitle("Logout")
                 .setMessage("Apakah Anda yakin ingin keluar?")
                 .setPositiveButton("Ya") { dialog, _ ->
@@ -82,8 +82,8 @@ class MainActivity : AppCompatActivity() {
                     editor.clear()
                     editor.apply()
                     dialog.dismiss()
-                    startActivity(Intent(this, LoginActivity::class.java))
-                    finish()
+                    startActivity(Intent(requireContext(), LoginActivity::class.java))
+                    requireActivity().finish()
                 }
                 .setNegativeButton("Batal") { dialog, _ -> dialog.dismiss() }
                 .show()

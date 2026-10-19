@@ -1,4 +1,4 @@
-package com.example.robby_tib.pertemuan6
+package com.example.robby_tib.Home.pertemuan6
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -8,7 +8,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.robby_tib.R
-import com.example.robby_tib.databinding.ActivityLimaBinding
 import com.example.robby_tib.databinding.ActivitySixthBinding
 
 class SixthActivity : AppCompatActivity() {
